@@ -13,9 +13,16 @@ class ArticlesController < ApplicationController
   end
 
   def index
-
     @articles = Article.all
+  end
 
+  def new
+
+  end
+
+  def create
+    # hien thi ra man hinh ngay luc an nut submit
+    render plain: params[:article]
   end
 
 end
