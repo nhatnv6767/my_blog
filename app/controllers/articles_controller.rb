@@ -8,8 +8,14 @@ class ArticlesController < ApplicationController
     # một instance variable để có thể sử dụng ở nhiều chỗ -> thêm @ vào trước article
     # @ biến 1 biến bình thường trở thành biến instance
     # byebug: use to debug
-    byebug
+    # byebug
     @article = Article.find(params[:id])
+  end
+
+  def index
+
+    @articles = Article.all
+
   end
 
 end
