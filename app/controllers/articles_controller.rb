@@ -20,9 +20,18 @@ class ArticlesController < ApplicationController
 
   end
 
+  # sau khi đã có thông tin từ form "new", ta hứng các giá trị đó
   def create
-    # hien thi ra man hinh ngay luc an nut submit
-    render plain: params[:article]
+    @article = Article.new(params.require(:article).permit(:title, :description))
+    # hien thi thong tin chi tiet ra
+    # render plain: @article.inspect
+    @article.save
+    # ở rails routes --expanded ta thấy Prefix article, đó là lý do vì sao có article_path
+    # nó sẽ trích xuất id từ @article, và sau đó sử dụng nó để tạo đường dẫn
+    # thường được sử dụng nếu ta chỉ chuyển hướng đơn giản là tại article ngay tại đây
+    # redirect_to article_path(@article)
+    # nên để viết ngắn hơn ta có thể dùng như dưới
+    redirect_to @article
   end
 
 end
