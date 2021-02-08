@@ -24,6 +24,13 @@ class ArticlesController < ApplicationController
 
   end
 
+  def edit
+
+    # Để có thể có id của filed cần chỉnh sửa
+    @article = Article.find(params[:id])
+
+  end
+
   # sau khi đã có thông tin từ form "new", ta hứng các giá trị đó
   def create
     @article = Article.new(params.require(:article).permit(:title, :description))
@@ -43,6 +50,19 @@ class ArticlesController < ApplicationController
       # Khi lưu không thành công sẽ trở lại trang new để thêm lại mẫu
       # và các thông báo sẽ chuyển đến đây, thông báo lỗi
       render 'new'
+    end
+  end
+
+  def update
+
+    # đầu tiên cần phải tìm cái article cần sửa đó
+    @article = Article.find(params[:id])
+    if @article.update(params.require(:article).permit(:title, :description))
+      flash[:notice] = "Article was updated successfully."
+      redirect_to @article
+    else
+      # nếu có lỗi xảy ra quay lại form chỉnh sửa
+      render 'edit'
     end
   end
 
