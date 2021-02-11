@@ -1,5 +1,10 @@
 class ArticlesController < ApplicationController
 
+  # Nghĩa là trước khi làm bất cứ thứ gì, ở đây có only nghĩa là chỉ riêng cho những def đó
+  # tức là trước khi những def kia được định nghĩa, nó sẽ lấy giá trị trong def set_article trước rồi mới
+  # làm những hành động trong def của ta
+  before_action :set_article, only: [:show, :edit, :update, :destroy]
+
   def show
     # tương tự như trong console ta làm là article = Article.find(1) or (2)
     # sau đó muốn truy cập đến các phần tử article.title or article.description
@@ -9,7 +14,7 @@ class ArticlesController < ApplicationController
     # @ biến 1 biến bình thường trở thành biến instance
     # byebug: use to debug
     # byebug
-    @article = Article.find(params[:id])
+
   end
 
   def index
@@ -27,13 +32,13 @@ class ArticlesController < ApplicationController
   def edit
 
     # Để có thể có id của filed cần chỉnh sửa
-    @article = Article.find(params[:id])
+
 
   end
 
   # sau khi đã có thông tin từ form "new", ta hứng các giá trị đó
   def create
-    @article = Article.new(params.require(:article).permit(:title, :description))
+    @article = Article.new(article_params)
     # hien thi thong tin chi tiet ra
     # render plain: @article.inspect
     if @article.save
@@ -56,8 +61,8 @@ class ArticlesController < ApplicationController
   def update
 
     # đầu tiên cần phải tìm cái article cần sửa đó
-    @article = Article.find(params[:id])
-    if @article.update(params.require(:article).permit(:title, :description))
+
+    if @article.update(article_params)
       flash[:notice] = "Article was updated successfully."
       redirect_to @article
     else
@@ -72,6 +77,19 @@ class ArticlesController < ApplicationController
     @article.destroy
     # show up
     redirect_to articles_path
+  end
+
+  # vì có những nơi bị lặp code, ta sử dụng phương pháp dưới đây để tránh điều đó, private nghĩa là trong
+  # phạm vi file .rb này mới được sử dụng
+  # không cần end kết thúc cho private, tự hiểu là những giá trị từ sau private đều là private
+  private
+
+  def set_article
+    @article = Article.find(params[:id])
+  end
+
+  def article_params
+    params.require(:article).permit(:title, :description)
   end
 
 end

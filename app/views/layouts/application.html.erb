@@ -11,9 +11,8 @@
   </head>
 
   <body>
-    <% flash.each do |name, msg| %>
-      <%= msg %>
-    <% end %>
+<!--    sau khi định nghĩa ở file _mesages.html.erb thì ta chỉ cần khai báo là chạy file đó như bên dưới-->
+    <%= render 'layouts/messages' %>
     <%= yield %>
   </body>
 </html>
