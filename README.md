@@ -35,3 +35,6 @@ DRY code: Don't repeat yourself
 
 - re-factoring
 - extract away the redundancles in mode
+
+
+
