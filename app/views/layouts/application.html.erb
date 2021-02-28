@@ -13,9 +13,11 @@
   <body class="d-flex flex-column">
 
     <%= render 'layouts/navigation' %>
-
-<!--    sau khi định nghĩa ở file _mesages.html.erb thì ta chỉ cần khai báo là chạy file đó như bên dưới-->
-    <%= render 'layouts/messages' %>
-    <%= yield %>
+    <div id="page-content">
+      <!--    sau khi định nghĩa ở file _mesages.html.erb thì ta chỉ cần khai báo là chạy file đó như bên dưới-->
+      <%= render 'layouts/messages' %>
+      <%= yield %>
+    </div>
+    <%= render 'layouts/footer' %>
   </body>
 </html>
