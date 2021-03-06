@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :articles
   # true: đảm bảo tên người dùng được presence trước khi một đối tượng người dùng được lưu vào CSDL
   # uniqueness check nếu như trùng tên username bao gồm cả viết hoa và viết thường
   validates :username, presence: true, uniqueness: { case_sensitive: false }, length: {minimum: 3, maximum: 25}
