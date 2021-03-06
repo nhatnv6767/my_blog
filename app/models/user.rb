@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  before_save { self.email = email.downcase}
   has_many :articles
   # true: đảm bảo tên người dùng được presence trước khi một đối tượng người dùng được lưu vào CSDL
   # uniqueness check nếu như trùng tên username bao gồm cả viết hoa và viết thường
