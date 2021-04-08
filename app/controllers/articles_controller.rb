@@ -39,8 +39,8 @@ class ArticlesController < ApplicationController
   # sau khi đã có thông tin từ form "new", ta hứng các giá trị đó
   def create
     @article = Article.new(article_params)
-    #Giải pháp tạm thời để khi chỉnh sửa hoặc tạo mới bài viết ko bị lỗi user exist nữa
-    @article.user = User.first
+    # trong application_helper.rb
+    @article.user = current_user
     # hien thi thong tin chi tiet ra
     # render plain: @article.inspect
     if @article.save
