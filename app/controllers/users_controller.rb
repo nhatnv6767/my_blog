@@ -36,7 +36,9 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       # để chắc chắn khi người dùng đăng ký mới xong được lưu lại session
-      session[:user_id] = @user_id
+      # ex: Khi co mot user moi sign up vao he thong, se hien thi thong tin cua nguoi do
+      # tuc thi
+      session[:user_id] = @user.id
       flash[:notice] = "Welcome to the Alpha Blog #{@user.username}, you have successfully signed up"
       redirect_to articles_path
     else
