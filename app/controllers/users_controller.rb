@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :require_user, only: [:edit, :update]
-  before_action :require_same_user, only: [:edit, :update]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
 
   def show
     # @user = User.find(params[:id])
@@ -48,6 +48,14 @@ class UsersController < ApplicationController
     end
   end
 
+  def destroy
+    @user.destroy
+    # cần lưu ý là khi xoá user, cần phải xoá mọi liên kết có từ id của user đó
+    session[:user_id] = nil
+    flash[:notice] = "Account and all associated articles successfully deleted"
+    redirect_to articles_path
+  end
+
   private
   # tương tự như ở articles_controller
   def user_params
@@ -58,7 +66,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # Khi dang nhap bang user nao thi chi edit update dc moi user do 
+  # Khi dang nhap bang user nao thi chi edit update dc moi user do
   def require_same_user
     if current_user != @user
       flash[:alert] = "You can only edit your own account"
