@@ -96,8 +96,9 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:title, :description)
   end
 
+  # nếu không phải là admin hoặc chủ sở hữu của bài viết đó thì không được chỉnh sửa
   def require_same_user
-    if current_user != @article.user
+    if current_user != @article.user && !current_user.admin?
       flash[:alert] = "You can only edit or delete your own article"
       redirect_to @article
     end
